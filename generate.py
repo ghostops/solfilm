@@ -1,10 +1,12 @@
+import datetime
 import os
+import boto3
 from wand.image import Image
 from wand.image import Color
 from wand.font import Font
 
-# Generate text images
 FONT = Font(path="./font.ttf", color=Color("#ffffff"))
+WEEK = datetime.date.today().isocalendar()[1]
 
 def set_text(img, txt, top):
     img.caption(
@@ -39,7 +41,7 @@ def set_intro_text():
     img = Image(filename="./img/intro.png")
 
     img.caption(
-        text="Solfilm Iceland",
+        text="Solfilm Week {}".format(WEEK),
         font=FONT,
         width=522,
         left=0,
@@ -61,10 +63,17 @@ def render_video():
 
     os.system(" ".join(command))
 
-set_up_text()
-set_down_text()
+def upload_video():
+    s3 = boto3.client('s3')
+    with open("./generated/output.mp4", "rb") as f:
+        s3.upload_fileobj(f, "solfilm", "week-{}.mp4".format(WEEK))
+
+# set_up_text()
+# set_down_text()
 set_intro_text()
 
-render_video()
+# render_video()
+
+upload_video()
 
 print("done")
