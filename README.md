@@ -10,3 +10,10 @@ To run:
 pipenv shell
 python src/generate.py
 ```
+
+To run inside Docker:
+
+```bash
+docker build -t solfilm .
+docker run --rm solfilm:latest python ./src/generate.py
+```
