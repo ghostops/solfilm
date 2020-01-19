@@ -17,3 +17,5 @@ To run inside Docker:
 docker build -t solfilm .
 docker run --rm solfilm:latest python ./src/generate.py
 ```
+
+To integrate the feed on a website, just copy paste the contents of the `widget/widget.html` file on to your page.
