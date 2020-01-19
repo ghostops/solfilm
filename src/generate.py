@@ -7,11 +7,13 @@ import scrape
 import images
 import helpers
 
-# script should run on mondays
-WEEK = datetime.date.today().isocalendar()[1]
 SRC_DIR = 'source'
 OUT_DIR = 'generated'
 S3_BUCKET = 'solfilm'
+# todays date, can also be replaced with a string for debugging
+DATE = datetime.date.today().strftime("%d-%m-%Y")
+
+today = datetime.datetime.strptime(DATE, '%d-%m-%Y').date()
 
 def generate_images(data):
     generator = images.Generator(SRC_DIR, OUT_DIR)
@@ -28,7 +30,7 @@ def generate_images(data):
         helpers.calc_diff(data['last_week_sunset'], data['todays_sunset'])
     )
 
-    generator.set_intro_text("Solfilm Week {}".format(WEEK))
+    generator.set_intro_text("Solfilm Week {}".format(DATE))
 
 def render_video():
     command = [
@@ -46,7 +48,7 @@ def upload_video():
         s3.upload_fileobj(
             f,
             S3_BUCKET,
-            "week-{}.mp4".format(WEEK),
+            "date-{}.mp4".format(DATE),
             ExtraArgs={'ACL':'public-read'}
         )
 
@@ -55,7 +57,7 @@ if not os.path.exists(OUT_DIR):
     os.mkdir(OUT_DIR)
 
 # generate images with dynaic data used to render the video
-generate_images(scrape.scrape_data())
+generate_images(scrape.scrape_data(today))
 
 # render the video with ffmpeg cli
 render_video()

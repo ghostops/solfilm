@@ -30,8 +30,7 @@ def scrape(month, year):
 
     return { 'sunrises': sunrises, 'sunsets': sunsets }
 
-def scrape_data():
-    today = datetime.datetime.today()
+def scrape_data(today):
     last_week = today - datetime.timedelta(days=7)
 
     # if both year and month is same we only make one request
@@ -49,8 +48,8 @@ def scrape_data():
     todays_sunrise = months[today.month]['sunrises'][today.day - 1]
     todays_sunset = months[today.month]['sunsets'][today.day - 1]
 
-    last_week_sunrise = months[today.month]['sunrises'][last_week.day - 1]
-    last_week_sunset = months[today.month]['sunsets'][last_week.day - 1]
+    last_week_sunrise = months[last_week.month]['sunrises'][last_week.day - 1]
+    last_week_sunset = months[last_week.month]['sunsets'][last_week.day - 1]
 
     return {
         'last_week_sunrise': last_week_sunrise,

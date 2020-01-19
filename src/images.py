@@ -44,8 +44,8 @@ class Generator:
         img.caption(
             text=txt,
             font=self.FONT,
-            width=522,
-            left=0,
+            width=430,
+            left=45,
             height=60,
             top=200,
             gravity='center'
