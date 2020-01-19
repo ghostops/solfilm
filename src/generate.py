@@ -34,7 +34,7 @@ def render_video():
     command = [
         "ffmpeg -y -i {0}/solfilmen.mp4 -i {1}/intro.png -i {1}/up.png -i {1}/down.png".format(SRC_DIR, OUT_DIR),
         "-filter_complex \"[0:v][1:v] overlay=enable='between(t,0,6)' [tmp];",
-        "[tmp][2:v] overlay=enable='between(t,9,32)' [tmp2]; [tmp2][3:v] overlay=enable='between(t,33,49)'\"",
+        "[tmp][2:v] overlay=enable='between(t,9,33)' [tmp2]; [tmp2][3:v] overlay=enable='between(t,34,53)'\"",
         "{}/output.mp4".format(OUT_DIR)
     ]
 
