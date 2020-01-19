@@ -1,4 +1,3 @@
-import boto3
 import datetime
 import os
 
@@ -6,6 +5,7 @@ import os
 import scrape
 import images
 import helpers
+import uploader
 
 SRC_DIR = 'source'
 OUT_DIR = 'generated'
@@ -42,16 +42,6 @@ def render_video():
 
     os.system(" ".join(command))
 
-def upload_video():
-    s3 = boto3.client('s3')
-    with open("{}/output.mp4".format(OUT_DIR), "rb") as f:
-        s3.upload_fileobj(
-            f,
-            S3_BUCKET,
-            "date-{}.mp4".format(DATE),
-            ExtraArgs={'ACL':'public-read'}
-        )
-
 # create output folder
 if not os.path.exists(OUT_DIR):
     os.mkdir(OUT_DIR)
@@ -63,6 +53,10 @@ generate_images(scrape.scrape_data(today))
 render_video()
 
 # upload the video to s3
-upload_video()
+uploader.upload_video(
+    "{}/output.mp4".format(OUT_DIR),
+    S3_BUCKET,
+    "date-{}.mp4".format(DATE),
+)
 
 print("Done")
