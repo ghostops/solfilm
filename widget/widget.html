@@ -18,9 +18,11 @@
 
         const wrapper = document.getElementById('solfilm-widget');
 
-        for (const id of data.split(',')) {
+        const files = data.split(',').map((file) => file.trim()).reverse();
+
+        for (const file of files) {
             const vid = document.createElement('video');
-            vid.src = `${base}/${id.trim()}`;
+            vid.src = `${base}/${file}`;
             vid.controls = true;
             vid.className = 'solfilm';
             vid.preload = false;
