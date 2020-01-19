@@ -9,6 +9,8 @@ def list_videos(bucket):
         if ".mp4" in key['Key']:
             videos.append(key['Key'])
 
+    videos.sort()
+
     return ", ".join(videos)
 
 def update_video_index(bucket, videos):

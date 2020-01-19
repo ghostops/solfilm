@@ -1,8 +1,30 @@
+<style>
+    #solfilm-widget {
+        width: 100%;
+    }
+
+    .solfilm {
+        display: block;
+        margin: 10px auto;
+    }
+</style>
+<div id="solfilm-widget"></div>
 <script>
     (async () => {
-        const res = await fetch('http://d1uotsq4scdd8u.cloudfront.net/index.txt');
+        const base = 'https://d1uotsq4scdd8u.cloudfront.net';
+
+        const res = await fetch(`${base}/index.txt`);
         const data = await res.text();
 
-        console.log(data);
+        const wrapper = document.getElementById('solfilm-widget');
+
+        for (const id of data.split(',')) {
+            const vid = document.createElement('video');
+            vid.src = `${base}/${id.trim()}`;
+            vid.controls = true;
+            vid.className = 'solfilm';
+            vid.preload = false;
+            wrapper.appendChild(vid);
+        }
     })();
 </script>

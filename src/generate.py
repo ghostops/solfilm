@@ -11,9 +11,9 @@ SRC_DIR = 'source'
 OUT_DIR = 'generated'
 S3_BUCKET = 'solfilm'
 # todays date, can also be replaced with a string for debugging
-DATE = datetime.date.today().strftime("%d-%m-%Y")
+DATE = datetime.date.today().strftime("%Y-%m-%d")
 
-today = datetime.datetime.strptime(DATE, '%d-%m-%Y').date()
+today = datetime.datetime.strptime(DATE, "%Y-%m-%d").date()
 
 def generate_images(data):
     generator = images.Generator(SRC_DIR, OUT_DIR)
