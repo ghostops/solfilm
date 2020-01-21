@@ -30,7 +30,7 @@ def generate_images(data):
         helpers.calc_diff(data['last_week_sunset'], data['todays_sunset'])
     )
 
-    generator.set_intro_text("Solfilm Week {}".format(DATE))
+    generator.set_intro_text("Sólfilm {}".format(DATE))
 
 def render_video():
     command = [
